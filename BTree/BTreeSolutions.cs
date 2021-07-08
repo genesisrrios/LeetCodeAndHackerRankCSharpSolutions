@@ -13,6 +13,7 @@ namespace BTree
         private bool IsFirstNode = true;
         public IList<IList<int>> LevelOrderTraversal(TreeNode root)
         {
+            //Not working yet.
             var nodes = new List<int>();
             if (root != default)
             {
@@ -22,26 +23,15 @@ namespace BTree
                     LevelOrderNodeList.Add(new int[] { root.val });
                 }
 
-                if (root.left != default)
-                {
-                    nodes.Add(root.left.val);
-                }
-                if (root.right != default)
-                {
-                    nodes.Add(root.right.val);
-                }
-                if (root.right != default || root.left != default)
-                {
-                    LevelOrderNodeList.Add(nodes);
-                }
-                if (root.left != default)
-                {
-                    LevelOrderTraversal(root.left);
-                }
-                if (root.right != default)
-                {
-                    LevelOrderTraversal(root.right);
-                }
+                if (root.left != default) nodes.Add(root.left.val);
+
+                if (root.right != default) nodes.Add(root.right.val);
+
+                if (nodes.Count > 0) LevelOrderNodeList.Add(nodes);
+
+                if (root.left != default) LevelOrderTraversal(root.left);
+
+                if (root.right != default) LevelOrderTraversal(root.right);
             }
             return LevelOrderNodeList;
         }
@@ -92,6 +82,37 @@ namespace BTree
                 TreeNodeList.Add(root.val);
             }
             return TreeNodeList;
+        }
+
+        public TreeNode GetNode()
+        {
+            var node = new TreeNode
+            {
+                val = 1,
+                left = new TreeNode
+                {
+                    val = 2,
+                    left = new TreeNode
+                    {
+                        val = 4,
+                        left = default,
+                        right = default
+                    },
+                    right = default
+                },
+                right = new TreeNode
+                {
+                    val = 3,
+                    right = new TreeNode
+                    {
+                        val = 5,
+                        left = default,
+                        right = default
+                    },
+                    left = default
+                }
+            };
+            return node;
         }
     }
     public class TreeNode
